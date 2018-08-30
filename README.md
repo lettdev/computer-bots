@@ -20,7 +20,7 @@ Rewrite Heroes Selection Functions
 - [ ] Pick heroes for bots from both teams using chat command
 - [ ] Select right hero for bot based on his role (slot) / *Currently the 1st slot assigned as Midlaner, then offlaner, support, support, carry*
 - [ ] Assign lane for bot based on role (slot)
-- [ ] 
+- [ ] ...
 
 Bot Behaviors
 - [ ] Aegis
