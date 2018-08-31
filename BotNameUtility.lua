@@ -77,13 +77,13 @@ local dota2teams = {
 	
 }
 
-local sponsorships = {"GG.bet", "gg.bet", "VPGAME", "LOOT.bet", "loot.bet", "", "Esports.bet", "G2A", "Dota2.net"};
+local t1 = 1
+local t2 = 2
+-- local sponsorships = {"GG.bet", "gg.bet", "VPGAME", "LOOT.bet", "loot.bet", "", "Esports.bet", "G2A", "Dota2.net"};
 
 function U.GetDota2Team()
 	local bot_names = {};
 	local team = {}
-	local t1 = RandomInt(1, #dota2teams);
-	local t2 = RandomInt(1, #dota2teams);
 	local srand = RandomInt(1, #sponsorships);
 	-- Make sure Radiant and Dire choose different teams
 	print(t1, t2)

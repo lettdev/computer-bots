@@ -180,8 +180,8 @@ local HeroLanes = {
 local PairsHeroNameNRole = {};
 local humanPick = {};
 
------------------------------------------------------SELECT HERO FOR BOT WITH CHAT FEATURE-------------------------------------------
---function to get hero name that match the expression
+--[[ ===== CHOOSING HEROES FOR BOTS BY CHAT COMMAND ===== ]]--
+-- Get chat command
 function GetHumanChatHero(name)
 	if name == nil then return ""; end	
 	for _,hero in  pairs(allBotHeroes) do
@@ -190,6 +190,11 @@ function GetHumanChatHero(name)
 		end
 	end
 	return "";
+--[[ placeholder
+s = "foo bar 123"
+words = {}
+for word in s:gmatch("%w+") do table.insert(words, word) end
+--]]
 end	
 --function to decide which team should get the hero
 function SelectHeroChatCallback(PlayerID, ChatText, bTeamOnly)
@@ -218,6 +223,7 @@ function SelectHeroChatCallback(PlayerID, ChatText, bTeamOnly)
 	end
 end
 ----------------------------------------------------------------------------------------------------------------------------------------
+
 local GAMEMODE_TM = 23;
 function Think()
 	if GetGameMode() == GAMEMODE_AP then
