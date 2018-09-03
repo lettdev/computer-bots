@@ -1,3 +1,4 @@
+require( GetScriptDirectory().."/data" )
 local U = {}
 
 local dota2teams = {
@@ -77,27 +78,26 @@ local dota2teams = {
 	
 }
 
-local t1 = 1
-local t2 = 2
 -- local sponsorships = {"GG.bet", "gg.bet", "VPGAME", "LOOT.bet", "loot.bet", "", "Esports.bet", "G2A", "Dota2.net"};
 
 function U.GetDota2Team()
 	local bot_names = {};
 	local team = {}
-	local srand = RandomInt(1, #sponsorships);
 	-- Make sure Radiant and Dire choose different teams
 	print(t1, t2)
 	if GetTeam() == TEAM_RADIANT then
 		t1 = RandomInt(1, #dota2teams);
 		t2 = RandomInt(1, #dota2teams);
 	end
-	print(t1, t2)
-	-- Assign Names/Sponsors
+	print(t1, t2)	
 	if GetTeam() == TEAM_RADIANT then
 		team = dota2teams[t1];
 	else
 		team = dota2teams[t2];
 	end
+	-- Check human player slot
+	
+	-- Assign Names/Sponsors
 	for _,player in pairs(team.players) do
 		if team.sponsorship == "" then
 			table.insert(bot_names, team.alias.."."..player);
