@@ -1,4 +1,3 @@
-require( GetScriptDirectory().."/data" )
 local U = {}
 
 local dota2teams = {
@@ -83,20 +82,19 @@ local dota2teams = {
 function U.GetDota2Team()
 	local bot_names = {};
 	local team = {}
-	-- Make sure Radiant and Dire choose different teams
-	print(t1, t2)
+	local tid = RandomInt(1, #dota2teams);
+	local rnum = math.floor(RealTime()) % 2
+	-- Make sure Radiant and Dire choose different pro teams
 	if GetTeam() == TEAM_RADIANT then
-		t1 = RandomInt(1, #dota2teams);
-		t2 = RandomInt(1, #dota2teams);
-	end
-	print(t1, t2)	
-	if GetTeam() == TEAM_RADIANT then
-		team = dota2teams[t1];
+		while tid % 2 == rnum do
+			tid = RandomInt(1, #dota2teams);
+		end
 	else
-		team = dota2teams[t2];
+		while tid % 2 ~= rnum do
+			tid = RandomInt(1, #dota2teams);
+		end
 	end
-	-- Check human player slot
-	
+	team = dota2teams[tid];
 	-- Assign Names/Sponsors
 	for _,player in pairs(team.players) do
 		if team.sponsorship == "" then

@@ -13,11 +13,13 @@ local UnImplementedHeroes = {
 	
 };
 
-----------------------------------------------------------GIVE THE BOT A PRO PLAYER NAME---------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+--=== SET BOT NAMES ===--
+----------------------------------------------------------------------------------------------------------------
 function GetBotNames ()
 	return bnUtil.GetDota2Team();
 end
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
 -- change quickMode to true for testing
 -- quickMode eliminates the 30s delay before picks begin
@@ -180,7 +182,9 @@ local HeroLanes = {
 local PairsHeroNameNRole = {};
 local humanPick = {};
 
---[[ ===== CHOOSING HEROES FOR BOTS BY CHAT COMMAND ===== ]]--
+----------------------------------------------------------------------------------------------------------------
+--=== VARIABLES ===--
+----------------------------------------------------------------------------------------------------------------
 -- Get chat command
 function GetHumanChatHero(name)
 	if name == nil then return ""; end	
@@ -200,9 +204,14 @@ end
 function SelectHeroChatCallback(PlayerID, ChatText, bTeamOnly)
 	local text = string.lower(ChatText);
 	local hero = GetHumanChatHero(text);
+	print(PlayerID)
+	for _,ene in pairs(GetTeamPlayers(GetTeam())) do
+		print(ene)
+	end
+	print(GetTeam())
 	if hero ~= "" then
 		if bTeamOnly then
-			for _,id in pairs(GetTeamPlayers(GetTeam())) 
+			for _,id in pairs(GetTeamPlayers(GetOpposingTeam())) 
 			do
 				if IsPlayerBot(id) and IsPlayerInHeroSelectionControl(id) and GetSelectedHeroName(id) == "" then
 					SelectHero(id, hero);
@@ -222,7 +231,7 @@ function SelectHeroChatCallback(PlayerID, ChatText, bTeamOnly)
 		print("Hero name not found! Please refer to hero_selection.lua of this script for list of heroes's name");
 	end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
 local GAMEMODE_TM = 23;
 function Think()
