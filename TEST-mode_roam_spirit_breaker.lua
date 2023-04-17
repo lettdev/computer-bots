@@ -43,29 +43,7 @@ function OnEnd()
 	npcTarget = nil;
 end
 
-function Think()
-	
-	if npcBot:HasModifier("modifier_spirit_breaker_charge_of_darkness")
-	then
-		if ConsiderCancelCharge() then
-			npcBot:Action_MoveToLocation(npcBot:GetLocation() + RandomVector(200));
-			return;
-		else
-			return;
-		end
-	else	
-		return;
-	end
-	
-	local target = FindTarget();
-	
-	if target ~= nil   
-	then
-		npcBot:Action_MoveToLocation(target:GetLocation());
-		return;
-	end
 
-end
 
 function GetBase()
 	return GetAncient(GetOpposingTeam()):GetLocation();
@@ -114,17 +92,7 @@ function FindLowHPTarget()
 	return nil;
 end
 
-function FindSuroundedEnemy()
-	local enemyheroes = GetUnitList(UNIT_LIST_ENEMY_HEROES );
-	for _,enemy in pairs(enemyheroes)
-	do
-		local allyNearby = enemy:GetNearbyHeroes(1200, false, BOT_MODE_ATTACK);
-		if allyNearby ~= nil and #allyNearby >= 2 then
-			return enemy;
-		end
-	end
-	return nil;
-end
+
 
 function FindAllyTarget()
 	local allyheroes = GetUnitList(UNIT_LIST_ALLIED_HEROES);
@@ -150,22 +118,6 @@ function FindTarget()
 	
 	target = FindLowHPTarget();
 	
-	if IsValidTarget(target) then
-		return target;
-	end
-	
-	target = FindSuroundedEnemy();
-	
-	if IsValidTarget(target) then
-		return target;
-	end
-	
-	target = FindAllyTarget();
-	
-	if IsValidTarget(target) then
-		return target;
-	end
-	
-	return target;
+
 	
 end
