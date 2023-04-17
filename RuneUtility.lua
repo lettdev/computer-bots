@@ -39,9 +39,4 @@ X.DireBountyRune = {
 	RUNE_BOUNTY_4
 }
 
-X.PU = {
-	RUNE_POWERUP_1,
-	RUNE_POWERUP_2
-}
-
 return X
