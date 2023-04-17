@@ -763,49 +763,6 @@ function ConsiderPurge(hMinionUnit)
 	return BOT_ACTION_DESIRE_NONE, 0;
 end
 
-------------Ensnare
-function ConsiderEnsnare(hMinionUnit)
-
-	-- Make sure it's castable
-	if ( abilityES:IsNull() or not abilityES:IsFullyCastable() ) then 
-		return BOT_ACTION_DESIRE_NONE, 0;
-	end
-	
-	-- Get some of its values
-	local nCastRange = abilityES:GetCastRange();
-	local nCastPoint = abilityES:GetCastPoint();
-	
-	
-	-- If we're seriously retreating, see if we can land a stun on someone who's damaged us recently
-	if ( npcBot:GetActiveMode() == BOT_MODE_RETREAT and npcBot:GetActiveModeDesire() >= BOT_MODE_DESIRE_HIGH ) 
-	then
-		local tableNearbyEnemyHeroes = hMinionUnit:GetNearbyHeroes( nCastRange, true, BOT_MODE_NONE );
-		for _,npcEnemy in pairs( tableNearbyEnemyHeroes )
-		do
-			if ( npcBot:WasRecentlyDamagedByHero( npcEnemy, 2.0 ) and CanCastOnNonMagicImmuneTarget(npcEnemy) ) 
-			then
-				return BOT_ACTION_DESIRE_HIGH, npcEnemy;
-			end
-		end
-	end
-
-	-- If we're going after someone
-	if ( npcBot:GetActiveMode() == BOT_MODE_ROAM or
-		 npcBot:GetActiveMode() == BOT_MODE_TEAM_ROAM or
-		 npcBot:GetActiveMode() == BOT_MODE_GANK or
-		 npcBot:GetActiveMode() == BOT_MODE_ATTACK or
-		 npcBot:GetActiveMode() == BOT_MODE_DEFEND_ALLY ) 
-	then
-		local npcTarget = npcBot:GetTarget();
-		if ( npcTarget ~= nil and npcTarget:IsHero() and CanCastOnNonMagicImmuneTarget(npcTarget) and GetUnitToUnitDistance(npcTarget, hMinionUnit) < nCastRange + 200 ) 
-		then
-			return BOT_ACTION_DESIRE_MODERATE, npcTarget;
-		end
-	end
-
-	return BOT_ACTION_DESIRE_NONE, 0;
-end
-
 ------------BOULDER
 function ConsiderBoulder(hMinionUnit)
 
