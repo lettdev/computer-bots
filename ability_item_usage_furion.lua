@@ -46,30 +46,6 @@ function AbilityUsageThink()
 	castOODesire, castOOLocation = ConsiderOverwhelmingOdds();
 	castCSDesire, castCSLocation = ConsiderChrono();
 	
-	if ( castFBDesire > 0 ) 
-	then
-		npcBot:Action_UseAbilityOnEntity( abilityFB, castFBTarget );
-		return;
-	end
-	
-	if ( castTWDesire > 0 ) 
-	then
-		npcBot:Action_UseAbilityOnLocation( abilityTW, castTWLocation );
-		return;
-	end	
-	
-	if ( castCSDesire > 0 ) 
-	then
-		npcBot:Action_UseAbilityOnLocation( abilityCS, castCSLocation );
-		return;
-	end	
-	
-	if ( castOODesire > 0 ) 
-	then
-		npcBot:Action_UseAbilityOnLocation( abilityOO, castOOLocation );
-		return;
-	end
-	
 end
 
 function ConsiderFireblast()
@@ -136,16 +112,6 @@ function ConsiderFireblast()
 		end
 	end
 
-	-- If we're going after someone
-	if mutil.IsGoingOnSomeone(npcBot)
-	then
-		local npcTarget = npcBot:GetTarget();
-		if mutil.IsValidTarget(npcTarget) and mutil.CanCastOnNonMagicImmune(npcTarget) and mutil.IsInRange(npcTarget, npcBot, nCastRange+200) and
-		   not mutil.IsDisabled(true, npcTarget)
-		then
-			return BOT_ACTION_DESIRE_HIGH, npcTarget;
-		end
-	end
 	
 	return BOT_ACTION_DESIRE_NONE, 0;
 
