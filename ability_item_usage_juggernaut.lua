@@ -15,3 +15,8 @@ end
 function CourierUsageThink()
 	ability_item_usage_generic.CourierUsageThink();
 end
+
+
+function AbilityOmniSlashThink()  
+	ability_item_usage_generic.AbilityOmniSlashThink()
+end
