@@ -198,16 +198,16 @@ function ConsiderW()
 		end
 	end	
 	
-	if ( mutil.IsPushing(npcBot) or mutil.IsDefending(npcBot) ) and mutil.AllowedToSpam(npcBot, nManaCost) 
-		 and tableNearbyEnemyHeroes == nil or #tableNearbyEnemyHeroes == 0 
-	then
-		local lanecreeps = npcBot:GetNearbyLaneCreeps(1000, true);
-		local locationAoE = npcBot:FindAoELocation( true, false, npcBot:GetLocation(), 1000, nRadius/2, nCastPoint, nDamage );
-		if ( locationAoE.count >= 4 and #lanecreeps >= 4 ) 
-		then
-			return BOT_ACTION_DESIRE_MODERATE, locationAoE.targetloc;
-		end
-	end	
+	-- if ( mutil.IsPushing(npcBot) or mutil.IsDefending(npcBot) ) and mutil.AllowedToSpam(npcBot, nManaCost) 
+	-- 	 and tableNearbyEnemyHeroes == nil or #tableNearbyEnemyHeroes == 0 
+	-- then
+	-- 	local lanecreeps = npcBot:GetNearbyLaneCreeps(1000, true);
+	-- 	local locationAoE = npcBot:FindAoELocation( true, false, npcBot:GetLocation(), 1000, nRadius/2, nCastPoint, nDamage );
+	-- 	if ( locationAoE.count >= 4 and #lanecreeps >= 4 ) 
+	-- 	then
+	-- 		return BOT_ACTION_DESIRE_MODERATE, locationAoE.targetloc;
+	-- 	end
+	-- end	
 	
 	-- If we're seriously retreating, see if we can land a stun on someone who's damaged us recently
 	if mutil.IsRetreating(npcBot)
@@ -246,6 +246,17 @@ function ConsiderW()
 			end
 		end
 	end
+
+	if ( mutil.IsPushing(npcBot) or mutil.IsDefending(npcBot) ) and mutil.AllowedToSpam(npcBot, nManaCost) 
+		 and tableNearbyEnemyHeroes == nil or #tableNearbyEnemyHeroes == 0 
+	then
+		local lanecreeps = npcBot:GetNearbyLaneCreeps(1000, true);
+		local locationAoE = npcBot:FindAoELocation( true, false, npcBot:GetLocation(), 1000, nRadius/2, nCastPoint, nDamage );
+		if ( locationAoE.count >= 4 and #lanecreeps >= 4 ) 
+		then
+			return BOT_ACTION_DESIRE_MODERATE, locationAoE.targetloc;
+		end
+	end	
 	
 	local skThere, skLoc = mutil.IsSandKingThere(npcBot, nCastRange, 2.0);
 	

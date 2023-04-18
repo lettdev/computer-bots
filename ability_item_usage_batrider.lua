@@ -60,17 +60,17 @@ function AbilityUsageThink()
 		return;
 	end
 	
-	if ( castFLDesire > 0 ) 
-	then
-		npcBot:Action_UseAbilityOnEntity( abilityFL, castFLTarget );
-		return;
-	end
+	-- if ( castFLDesire > 0 ) 
+	-- then
+	-- 	npcBot:Action_UseAbilityOnEntity( abilityFL, castFLTarget );
+	-- 	return;
+	-- end
 	
-	if ( castFFDesire > 0 ) 
-	then
-		npcBot:Action_UseAbility( abilityFF );
-		return;
-	end
+	-- if ( castFFDesire > 0 ) 
+	-- then
+	-- 	npcBot:Action_UseAbility( abilityFF );
+	-- 	return;
+	-- end
 
 	if ( castSNDesire > 0 ) 
 	then
@@ -85,6 +85,18 @@ function AbilityUsageThink()
 		return;
 	end	
 	
+	if ( castFLDesire > 0 ) 
+	then
+		npcBot:Action_UseAbilityOnEntity( abilityFL, castFLTarget );
+		return;
+	end
+	
+	if ( castFFDesire > 0 ) 
+	then
+		npcBot:Action_UseAbility( abilityFF );
+		return;
+	end
+
 
 end
 
@@ -132,16 +144,16 @@ function ConsiderStickyNapalm()
 	end
 	
 	-- If we're pushing or defending a lane and can hit 4+ creeps, go for it
-	if  ( npcBot:GetActiveMode() == BOT_MODE_LANING or
-		mutil.IsDefending(npcBot) or mutil.IsPushing(npcBot) ) and npcBot:GetMana() / npcBot:GetMaxMana() > 0.75
-	then
-		local lanecreeps = npcBot:GetNearbyLaneCreeps(nCastRange+200, true);
-		local locationAoE = npcBot:FindAoELocation( true, false, npcBot:GetLocation(), nCastRange, nRadius, 0, 0 );
-		if ( locationAoE.count >= 4 and #lanecreeps >= 4   ) 
-		then
-			return BOT_ACTION_DESIRE_LOW, locationAoE.targetloc;
-		end
-	end
+	-- if  ( npcBot:GetActiveMode() == BOT_MODE_LANING or
+	-- 	mutil.IsDefending(npcBot) or mutil.IsPushing(npcBot) ) and npcBot:GetMana() / npcBot:GetMaxMana() > 0.75
+	-- then
+	-- 	local lanecreeps = npcBot:GetNearbyLaneCreeps(nCastRange+200, true);
+	-- 	local locationAoE = npcBot:FindAoELocation( true, false, npcBot:GetLocation(), nCastRange, nRadius, 0, 0 );
+	-- 	if ( locationAoE.count >= 4 and #lanecreeps >= 4   ) 
+	-- 	then
+	-- 		return BOT_ACTION_DESIRE_LOW, locationAoE.targetloc;
+	-- 	end
+	-- end
 
 	
 	-- If we're going after someone
@@ -151,6 +163,19 @@ function ConsiderStickyNapalm()
 		if ( mutil.IsValidTarget(npcTarget) and mutil.CanCastOnNonMagicImmune(npcTarget) and mutil.IsInRange(npcTarget, npcBot, nCastRange+200)  ) 
 		then
 			return BOT_ACTION_DESIRE_MODERATE, npcTarget:GetExtrapolatedLocation( nCastPoint );
+		end
+	end
+
+
+
+	if  ( npcBot:GetActiveMode() == BOT_MODE_LANING or
+		mutil.IsDefending(npcBot) or mutil.IsPushing(npcBot) ) and npcBot:GetMana() / npcBot:GetMaxMana() > 0.75
+	then
+		local lanecreeps = npcBot:GetNearbyLaneCreeps(nCastRange+200, true);
+		local locationAoE = npcBot:FindAoELocation( true, false, npcBot:GetLocation(), nCastRange, nRadius, 0, 0 );
+		if ( locationAoE.count >= 4 and #lanecreeps >= 4   ) 
+		then
+			return BOT_ACTION_DESIRE_LOW, locationAoE.targetloc;
 		end
 	end
 --
