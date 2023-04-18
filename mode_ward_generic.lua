@@ -79,7 +79,7 @@ function GetDesire()
 		if pinged then	
 			return RemapValClamped(GetUnitToUnitDistance(bot, wt), 1000, 0, BOT_MODE_DESIRE_HIGH, BOT_MODE_DESIRE_VERYHIGH);
 		end
-		--[[if bot.lastPlayerChat ~= nil and string.find(bot.lastPlayerChat.text, "ward") then
+		if bot.lastPlayerChat ~= nil and string.find(bot.lastPlayerChat.text, "ward") then
 			if GetTeamForPlayer(bot.lastPlayerChat.pid) == bot:GetTeam() then
 				pinged = false;
 				bot:ActionImmediate_Chat("OK I'll give you ward", false);
@@ -90,7 +90,7 @@ function GetDesire()
 			end
 		else
 			bot.lastPlayerChat = nil;	
-		end]]--
+		end--
 		
 		AvailableSpots = wardUtils.GetAvailableSpot(bot);
 		targetLoc, targetDist = wardUtils.GetClosestSpot(bot, AvailableSpots);
